@@ -5,18 +5,6 @@ import './App.css'
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
 
-  // useEffect( () => {
-  //     const request = async ()=>{
-  //       const data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150");
-  //       const resp= await data.json();
-  //       return resp;
-  //       if (resp.results.length){
-  //         console.log(resp.results);
-  //       }
-  //     };
-  //     request() 
-  // }, []);
-
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
     .then(response => response.json())
@@ -31,8 +19,8 @@ const App = () => {
           {pokemons.map((pokemon)=>{
             return <Link  key={pokemon.name} to={`/${pokemon.name}`}>{pokemon.name}</Link>
           })}
-
         </nav>
+        <aside></aside>
         <article></article>
       </main>
     </BrowserRouter>
