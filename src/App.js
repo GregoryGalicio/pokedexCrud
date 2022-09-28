@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import './App.css'
+import Pokemon from "./components/Pokemon"; 
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -9,8 +10,8 @@ const App = () => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
     .then(response => response.json())
     .then(data => setPokemons(data.results));
+    // console.log(pokemons);
 }, [])
-
 
   return (
     <BrowserRouter>
@@ -21,7 +22,16 @@ const App = () => {
           })}
         </nav>
         <aside></aside>
-        <article></article>
+        <article>
+          <Switch>
+          {pokemons.map((pokemon)=>{
+            return (
+            <Route key={`r_${pokemon.name}`} exact path={`/${pokemon.name}`}>
+              <Pokemon name={pokemon.name}></Pokemon>
+            </Route>);
+          })}
+          </Switch>
+        </article>
       </main>
     </BrowserRouter>
   );
